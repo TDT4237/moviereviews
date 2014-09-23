@@ -15,17 +15,20 @@ use [asymmetric crypto](https://help.github.com/articles/generating-ssh-keys).
 
 One group member should clone the repo (with --bare) and push to new repo. Then the rest of the group members
 should be added as collaborators to that repo. This way the group
-can use git and github and synchronize code changes. 
+can use git and github and synchronize code changes.
 
-    # go to github.com and create a new repo called my-new-repo
-    git clone --bare git@github.com:TDT4237/moviereviews.git
-    cd moviereviews.git
-    git push --mirror git@github.com:<your username>/my-new-repo.git
-    # go to github.com and make the repo private
-    cd ../
-    rm -rf moviereviews.git/
-    git clone git@github.com:<your username>/my-new-repo.git
+    ssh-keygen
+    # go to github.com and create a new repo called my-new-repo. Mark it "private".
+    git clone git@github.com:TDT4237/moviereviews # assumes public key installed on github
     cd moviereviews
+    rm -rf .git
+    git init
+    git config --global user.email "you@example.com"
+    git config --global user.name "Your Name"
+    git add .
+    git commit -m'first commit'
+    git remote add origin git@github.com:<github username>/my-new-repo.git
+    git push -u origin master
 
 Windows users can use git from Git Bash, which is a terminal that
 is bundled with git.
