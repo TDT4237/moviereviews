@@ -47,7 +47,10 @@ Restart terminal so the new PATH is sourced.
 
 Check reach-ability of interpreter with `php -v`.
 
+If you get error similar to `missing MSVCR110.dll` when trying to run php, try installing
+[Visual C++ Redistributable for Visual Studio 2012 Update 4](http://www.microsoft.com/en-us/download/details.aspx?id=30679)
 Copy `php.ini-production` to `php.ini`. Enable openssl by removing leading `;`
+
 from `;extension=php_openssl.dll`. Set `extension_dir` to `ext`.
 Enable the `php_pdo_sqlite.dll` extension.
 
