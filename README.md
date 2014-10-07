@@ -13,7 +13,8 @@ Git is a version control system used for files.
 To authenticate yourself without password, 
 use [asymmetric crypto](https://help.github.com/articles/generating-ssh-keys).
 
-One group member should clone the repo (with --bare) and push to new repo. Then the rest of the group members
+One group member should clone the repo, remove .git folder and push to new repo.
+Then the rest of the group members
 should be added as collaborators to that repo. This way the group
 can use git and github and synchronize code changes.
 
