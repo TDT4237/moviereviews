@@ -20,7 +20,7 @@ can use git and github and synchronize code changes.
 
     ssh-keygen
     # go to github.com and create a new repo called my-new-repo. Mark it "private".
-    git clone git@github.com:TDT4237/moviereviews # assumes public key installed on github
+    git clone git@github.com:TDT4237/moviereviews 
     cd moviereviews
     rm -rf .git
     git init
@@ -29,7 +29,7 @@ can use git and github and synchronize code changes.
     git add .
     git commit -m'first commit'
     git remote add origin git@github.com:<github username>/my-new-repo.git
-    git push -u origin master
+    git push -u origin master # assumes public key installed on github
 
 Windows users can use git from Git Bash, which is a terminal that
 is bundled with git.
@@ -124,21 +124,6 @@ The webapp can be browsed at [http://localhost:8080/](http://localhost:8080/).
 For deployment such that the internet can reach your server run
 `php -S 0.0.0.0:8080 -t web web/index.php`.
 
-## The code base
-
-Learn some PHP syntax with [code academy](http://www.codecademy.com/en/tracks/php).
-
-The project is built upon a lightweight framework called
-[Slim](http://docs.slimframework.com/).
-
-The
-[Twig](http://twig.sensiolabs.org/doc/templates.html)
-template language is used.
-
-Write [nice php code](http://www.phptherightway.com/).
-
-[PHP is much better than you think](http://fabien.potencier.org/article/64/php-is-much-better-than-you-think).
-
 ## Troubleshooting and gotchas
 
 If you get error 
@@ -148,6 +133,12 @@ you probably forgot to install dependencies with `php composer.par install`.
 If you get error
 `SQLSTATE[HY000]: General error: 1 no such table: movies`
 you probably forgot to create SQL tables with `php composer.phar up`.
+If that did not help, you have have started the HTTP server incorrectly. Which
+can cause the `app.db` to be created in wrong directory. It should be created
+in project root and _not_ in the web folder. Delete the `app.db` in `web` folder
+and then start the server correctly with 
+`php -S localhost:8080 -t web web/index.php`.
+
 On the course run server, we are _not_ running the PHP dev server explained here, as that is only
 meant for development use. Instead we run Apache/2.4.7 (Ubuntu) PHP/5.5.9-1ubuntu4.4, where we
 host the subfolder web/ as DocumentRoot. This also means that unlike the repository code, app.db resides
@@ -166,3 +157,18 @@ translated to `$movie->getName()`. So simply create that function.
 Subclasses do not automatically call parent constructor. Call manually with
 
     parent::__construct();
+
+## The code base
+
+Learn some PHP syntax with [code academy](http://www.codecademy.com/en/tracks/php).
+
+The project is built upon a lightweight framework called
+[Slim](http://docs.slimframework.com/).
+
+The
+[Twig](http://twig.sensiolabs.org/doc/templates.html)
+template language is used.
+
+Write [nice php code](http://www.phptherightway.com/).
+
+[PHP is much better than you think](http://fabien.potencier.org/article/64/php-is-much-better-than-you-think).
