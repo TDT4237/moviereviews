@@ -96,7 +96,7 @@ package in package managers.
     apt-get install php5-sqlite sqlite3 // debian/ubuntu
     pacman -Syu php-sqlite // archlinux
 
-Create SQL tables and fill data with `php composer.phar run-script up`.
+Create SQL tables and fill data with `php composer.phar up`.
 Inspect db with `sqlite3 app.db`.
 To list all tables run `.tables`. To describe a single table by name run
  `.dump users`. For nicer layout run`.mode column` and `.headers on`.
@@ -141,6 +141,13 @@ Write [nice php code](http://www.phptherightway.com/).
 
 ## Troubleshooting and gotchas
 
+If you get error 
+`Warning: require_once(/tmp/a/src/../vendor/autoload.php): failed to open stream: No such file or directory`
+you probably forgot to install dependencies with `php composer.par install`.
+
+If you get error
+`SQLSTATE[HY000]: General error: 1 no such table: movies`
+you probably forgot to create SQL tables with `php composer.phar up`.
 On the course run server, we are _not_ running the PHP dev server explained here, as that is only
 meant for development use. Instead we run Apache/2.4.7 (Ubuntu) PHP/5.5.9-1ubuntu4.4, where we
 host the subfolder web/ as DocumentRoot. This also means that unlike the repository code, app.db resides
