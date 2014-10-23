@@ -156,10 +156,10 @@ translated to `$movie->getName()`. So simply create that function.
 
 When sending email, remember to add a `From:` header:
 
-    $ret = mail("me@dvikan.no",
+    $ret = mail($to,
                 "A Subject Here",
                 "Hi there,\nThis email was sent using PHP's mail function.",
-                "From: noreplys@tdt4237.idi.ntnu.no"
+                "From: noreply@tdt4237.idi.ntnu.no"
     );
 
     if ($ret) {
