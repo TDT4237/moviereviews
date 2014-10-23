@@ -154,6 +154,20 @@ translated to `$movie->getName()`. So simply create that function.
 
 ### PHP
 
+When sending email, remember to add a `From:` header:
+
+    $ret = mail("me@dvikan.no",
+                "A Subject Here",
+                "Hi there,\nThis email was sent using PHP's mail function.",
+                "From: noreplys@tdt4237.idi.ntnu.no"
+    );
+
+    if ($ret) {
+        print "Email successfully sent";
+    } else {
+        print "An error occured";
+    }
+
 Subclasses do not automatically call parent constructor. Call manually with
 
     parent::__construct();
