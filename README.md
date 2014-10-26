@@ -86,7 +86,9 @@ Composer is a dependency manager for PHP.
 
     curl -sS https://getcomposer.org/installer | php
 
-Install dependencies with `php composer.phar install`.
+Install dependencies with
+
+    php composer.phar install
 
 ## Sqlite3
 
@@ -114,7 +116,9 @@ and testing there is also the built-in HTTP server. Let's use it.
 As of PHP 5.4.0, the CLI SAPI provides a 
 [built-in web server](http://php.net/manual/en/features.commandline.webserver.php).
 
-Start the built-in server by running `php -S localhost:8080 -t web web/index.php`.
+Start the built-in server by running
+
+    php -S localhost:8080 -t web web/index.php
 
 The file argument is the router front end. All requests go through
 the router. The -t option specifies the
@@ -133,19 +137,8 @@ you probably forgot to install dependencies with `php composer.par install`.
 If you get error
 `SQLSTATE[HY000]: General error: 1 no such table: movies`
 you probably forgot to create SQL tables with `php composer.phar up`.
-If that did not help, you have have started the HTTP server incorrectly. Which
-can cause the `app.db` to be created in wrong directory. It should be created
-in project root and _not_ in the web folder. Delete the `app.db` in `web` folder
-and then start the server correctly with 
-`php -S localhost:8080 -t web web/index.php`.
 
-On the course run server, we are _not_ running the PHP dev server explained here, as that is only
-meant for development use. Instead we run Apache/2.4.7 (Ubuntu) PHP/5.5.9-1ubuntu4.4, where we
-host the subfolder web/ as DocumentRoot. This also means that unlike the repository code, app.db resides
-inside web/ on the server for the duration of Exercise 1. Those interested in exactly mimicking the
-behavior of the server should start with Ubuntu Trusty to get as close to our setup as possible.
-
-Beware that your code WILL have to run on this setup when you deliver it.
+Filenames are case-sensitive on osx and linux. They are not on windows.
 
 ### Twig
 
@@ -154,7 +147,8 @@ translated to `$movie->getName()`. So simply create that function.
 
 ### PHP
 
-When sending email, remember to add a `From:` header:
+When sending email, remember to add a `From:` header. Because it lowers
+the chance of it being classified as spam.
 
     $ret = mail($to,
                 "A Subject Here",
@@ -168,9 +162,21 @@ When sending email, remember to add a `From:` header:
         print "An error occured";
     }
 
+If you need a folder to store uploaded files, remember to make sure it exists
+and has correct permissions:
+
+    mkdir('web/images/uploads', 0700);
+
+E.g. the imagejpeg() requires that the user has write and execute bit on 
+the folder it is working on.
+
 Subclasses do not automatically call parent constructor. Call manually with
 
     parent::__construct();
+
+You can scan for syntax errors in all php files with
+
+    find -name '*.php' -exec php -l {} \; | grep -v '^No syn'
 
 ## The code base
 
