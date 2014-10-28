@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 chdir(__DIR__ . '/../');
+chmod(__DIR__ . '/../web/uploads', 0777);
 
 $app = new \Slim\Slim([
     'templates.path' => __DIR__.'/webapp/templates/',
