@@ -162,13 +162,8 @@ the chance of it being classified as spam.
         print "An error occured";
     }
 
-If you need a folder to store uploaded files, remember to make sure it exists
-and has correct permissions:
-
-    mkdir('web/images/uploads', 0700);
-
-E.g. the imagejpeg() requires that the user has write and execute bit on 
-the folder it is working on.
+If you need a folder to store uploaded files, use the `web/uploads` folder.
+Because it exists in repo, and has 0777 permissions.
 
 Subclasses do not automatically call parent constructor. Call manually with
 
