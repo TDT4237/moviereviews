@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . '/../vendor/autoload.php';
 
+chdir(__DIR__ . '/../');
+
 $app = new \Slim\Slim([
     'templates.path' => __DIR__.'/webapp/templates/',
     'debug' => true,
