@@ -112,7 +112,8 @@ Delete all tables with `php composer.phar run-script down`.
 ## PHP's built-in HTTP server
 
 Webapps are usually deployed with Apache or nginx. But for development
-and testing there is also the built-in HTTP server. Let's use it.  
+and testing there is also the built-in HTTP server. Let's use it.
+Do not add a `.htaccess` file. It will have zero effect.
 As of PHP 5.4.0, the CLI SAPI provides a 
 [built-in web server](http://php.net/manual/en/features.commandline.webserver.php).
 

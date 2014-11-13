@@ -3,6 +3,7 @@ tags
 composer.phar
 vendor/*
 *.php~
+.htaccess
 
 #
 # OS garbage, Editors, IDEs, etc
