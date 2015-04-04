@@ -51,7 +51,8 @@ class User
     function save()
     {
         if ($this->id === null) {
-            $query = sprintf(self::INSERT_QUERY,
+            $query = sprintf(
+                self::INSERT_QUERY,
                 $this->user,
                 $this->pass,
                 $this->email,
@@ -60,7 +61,8 @@ class User
                 $this->isAdmin
             );
         } else {
-            $query = sprintf(self::UPDATE_QUERY,
+            $query = sprintf(
+                self::UPDATE_QUERY,
                 $this->email,
                 $this->age,
                 $this->bio,
@@ -138,7 +140,7 @@ class User
     }
 
     /**
-     * The caller of this function can check the length of the returned 
+     * The caller of this function can check the length of the returned
      * array. If array length is 0, then all checks passed.
      *
      * @param User $user
@@ -182,7 +184,7 @@ class User
         $result = self::$app->db->query($query, \PDO::FETCH_ASSOC);
         $row = $result->fetch();
 
-        if($row == false) {
+        if ($row == false) {
             return null;
         }
 

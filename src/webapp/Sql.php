@@ -15,7 +15,8 @@ class Sql
     /**
      * Create tables.
      */
-    static function up() {
+    static function up()
+    {
         $q1 = "CREATE TABLE users (id INTEGER PRIMARY KEY, user VARCHAR(50), pass VARCHAR(50), email varchar(50), age varchar(50), bio varhar(50), isadmin INTEGER);";
         $q4 = "CREATE TABLE movies (id INTEGER PRIMARY KEY, name VARVHAR(50), imageurl VARCHAR(100) );";
         $q5 = "CREATE TABLE moviereviews (id INTEGER PRIMARY KEY, movieid INTEGER, author VARVHAR(50), text VARCHAR(500) );";
@@ -30,7 +31,8 @@ class Sql
         self::insertMovies();
     }
 
-    static function insertDummyUsers() {
+    static function insertDummyUsers()
+    {
         $hash1 = Hash::make(bin2hex(openssl_random_pseudo_bytes(2)));
         $hash2 = Hash::make('bobdylan');
         $hash3 = Hash::make('liverpool');
@@ -46,7 +48,8 @@ class Sql
         print "[tdt4237] Done inserting dummy users.".PHP_EOL;
     }
 
-    static function insertMovies() {
+    static function insertMovies()
+    {
         $movies = [
             ['American Psycho', 'psycho.jpg'],
             ['Open Your Eyes', 'eyes.jpg'],
@@ -69,7 +72,8 @@ class Sql
         print "[tdt4237] Done inserting dummy movies.".PHP_EOL;
     }
 
-    static function down() {
+    static function down()
+    {
         $q1 = "DROP TABLE users";
         $q4 = "DROP TABLE movies";
         $q5 = "DROP TABLE moviereviews";
@@ -86,7 +90,7 @@ try {
     Sql::$pdo = new \PDO('sqlite:app.db');
     // Set errormode to exceptions
     Sql::$pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-} catch(\PDOException $e) {
+} catch (\PDOException $e) {
     echo $e->getMessage();
     exit();
 }

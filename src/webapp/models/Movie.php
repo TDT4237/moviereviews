@@ -64,7 +64,8 @@ class Movie
         return $movies;
     }
 
-    static function makeFromRow($row) {
+    static function makeFromRow($row)
+    {
         $movie = self::make(
             $row['id'],
             $row['name'],

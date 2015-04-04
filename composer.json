@@ -23,5 +23,8 @@
         "test": "phpunit --colors --bootstrap vendor/autoload.php test/",
         "down": "tdt4237\\webapp\\Sql::down",
         "up": "tdt4237\\webapp\\Sql::up"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "~2.3"
     }
 }

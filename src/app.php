@@ -20,14 +20,14 @@ try {
     $app->db = new PDO('sqlite:app.db');
     // Set errormode to exceptions
     $app->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch(PDOException $e) {
+} catch (PDOException $e) {
     echo $e->getMessage();
     exit();
 }
 
-$ns ='tdt4237\\webapp\\controllers\\'; 
+$ns ='tdt4237\\webapp\\controllers\\';
 
-// Home page at http://localhost/
+// Home page at http://localhost:8080/
 $app->get('/', $ns . 'IndexController:index');
 
 // Login form

@@ -1,6 +1,7 @@
 <?php
 
 namespace tdt4237\webapp\controllers;
+
 use tdt4237\webapp\Auth;
 
 class Controller

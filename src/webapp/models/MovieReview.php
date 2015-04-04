@@ -100,7 +100,8 @@ class MovieReview
         return $reviews;
     }
 
-    static function makeFromRow($row) {
+    static function makeFromRow($row)
+    {
         $review = self::make(
             $row['id'],
             $row['author'],
