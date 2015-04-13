@@ -7,19 +7,19 @@ use tdt4237\webapp\models\User;
 
 class AdminController extends Controller
 {
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
     }
 
-    function index()
+    public function index()
     {
-        if (Auth::guest()) {
+        if ($this->auth->guest()) {
             $this->app->flash('info', "You must be logged in to view the admin page.");
             $this->app->redirect('/');
         }
 
-        if (! Auth::isAdmin()) {
+        if (! $this->auth->isAdmin()) {
             $this->app->flash('info', "You must be administrator to view the admin page.");
             $this->app->redirect('/');
         }
@@ -30,9 +30,9 @@ class AdminController extends Controller
         $this->render('admin.twig', $variables);
     }
 
-    function delete($username)
+    public function delete($username)
     {
-        if (User::deleteByUsername($username) === 1) {
+        if ($this->userRepository->deleteByUsername($username) === 1) {
             $this->app->flash('info', "Sucessfully deleted '$username'");
         } else {
             $this->app->flash('info', "An error ocurred. Unable to delete user '$username'.");

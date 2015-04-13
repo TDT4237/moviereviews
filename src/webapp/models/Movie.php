@@ -53,15 +53,8 @@ class Movie
     {
         $query = "SELECT * FROM movies";
         $results = self::$app->db->query($query);
-
-        $movies = [];
-
-        foreach ($results as $row) {
-            $movie = self::makeFromRow($row);
-            array_push($movies, $movie);
-        }
-
-        return $movies;
+        
+        return array_map('tdt4237\webapp\models\Movie::makeFromRow', $results->fetchAll());
     }
 
     static function makeFromRow($row)

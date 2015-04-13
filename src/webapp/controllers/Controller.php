@@ -7,17 +7,22 @@ use tdt4237\webapp\Auth;
 class Controller
 {
     protected $app;
+    
+    protected $userRepository;
+    protected $auth;
 
-    function __construct()
+    public function __construct()
     {
         $this->app = \Slim\Slim::getInstance();
+        $this->userRepository = $this->app->userRepository;
+        $this->auth = $this->app->auth;
     }
 
-    function render($template, $variables = [])
+    protected function render($template, $variables = [])
     {
-        if (! Auth::guest()) {
+        if (! $this->auth->guest()) {
             $variables['isLoggedIn'] = true;
-            $variables['isAdmin'] = Auth::isAdmin();
+            $variables['isAdmin'] = $this->auth->isAdmin();
             $variables['loggedInUsername'] = $_SESSION['user'];
         }
 

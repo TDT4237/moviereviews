@@ -13,7 +13,7 @@ class LoginController extends Controller
 
     function index()
     {
-        if (Auth::check()) {
+        if ($this->auth->check()) {
             $username = Auth::user()->getUserName();
             $this->app->flash('info', 'You are already logged in as ' . $username);
             $this->app->redirect('/');
@@ -28,10 +28,10 @@ class LoginController extends Controller
         $user = $request->post('user');
         $pass = $request->post('pass');
 
-        if (Auth::checkCredentials($user, $pass)) {
+        if ($this->auth->checkCredentials($user, $pass)) {
             $_SESSION['user'] = $user;
 
-            $isAdmin = Auth::user()->isAdmin();
+            $isAdmin = $this->auth->user()->isAdmin();
 
             if ($isAdmin) {
                 setcookie("isadmin", "yes");

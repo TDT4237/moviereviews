@@ -2,18 +2,27 @@
 
 namespace tdt4237\webapp;
 
-use tdt4237\webapp\models\User;
+use Exception;
 use tdt4237\webapp\Hash;
+use tdt4237\webapp\models\User;
+use tdt4237\webapp\repository\UserRepository;
 
 class Auth
 {
-    function __construct()
+
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
+
+    function __construct(UserRepository $userRepository)
     {
+        $this->userRepository = $userRepository;
     }
 
-    static function checkCredentials($username, $password)
+    public function checkCredentials($username, $password)
     {
-        $user = User::findByUser($username);
+        $user = $this->userRepository->findByUser($username);
 
         if ($user === null) {
             return false;
@@ -25,7 +34,7 @@ class Auth
     /**
      * Check if is logged in.
      */
-    static function check()
+    public function check()
     {
         return isset($_SESSION['user']);
     }
@@ -33,7 +42,7 @@ class Auth
     /**
      * Check if the person is a guest.
      */
-    static function guest()
+    public function guest()
     {
         return self::check() === false;
     }
@@ -41,28 +50,28 @@ class Auth
     /**
      * Get currently logged in user.
      */
-    static function user()
+    public function user()
     {
         if (self::check()) {
-            return User::findByUser($_SESSION['user']);
+            return $this->userRepository->findByUser($_SESSION['user']);
         }
 
-        throw new \Exception('Not logged in but called Auth::user() anyway');
+        throw new Exception('Not logged in but called Auth::user() anyway');
     }
 
     /**
      * Is currently logged in user admin?
      */
-    static function isAdmin()
+    public function isAdmin()
     {
-        if (self::check()) {
+        if ($this->check()) {
             return $_COOKIE['isadmin'] === 'yes';
         }
 
-        throw new \Exception('Not logged in but called Auth::isAdmin() anyway');
+        throw new Exception('Not logged in but called Auth::isAdmin() anyway');
     }
 
-    static function logout()
+    public function logout()
     {
         session_destroy();
     }
