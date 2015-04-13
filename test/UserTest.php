@@ -6,7 +6,8 @@ class UserTest extends \PHPUnit_Framework_TestCase
 {
     function setUp()
     {
-        $this->user = User::make(5, 'luckylucke', '', '', '', '', false);
+        $this->user = new User('luckylucke', 'myshadow');
+        $this->user->setId(5);
     }
 
     function testUser()
@@ -15,16 +16,8 @@ class UserTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($user->getId(), 5);
         $this->assertEquals($user->getUserName(), 'luckylucke');
-        $this->assertFalse($user->isadmin());
 
         $user->setId(1337);
         $this->assertEquals($user->getId(), 1337);
-    }
-
-    function testValidate()
-    {
-        $user = $this->user;
-        $errors = User::validate($user);
-        $this->assertEquals(sizeof($errors), 0);
     }
 }
