@@ -25,7 +25,7 @@ class AdminController extends Controller
         }
 
         $variables = [
-            'users' => User::all()
+            'users' => $this->userRepository->all()
         ];
         $this->render('admin.twig', $variables);
     }
@@ -34,10 +34,11 @@ class AdminController extends Controller
     {
         if ($this->userRepository->deleteByUsername($username) === 1) {
             $this->app->flash('info', "Sucessfully deleted '$username'");
-        } else {
-            $this->app->flash('info', "An error ocurred. Unable to delete user '$username'.");
+            $this->app->redirect('/admin');
+            return;
         }
-
+        
+        $this->app->flash('info', "An error ocurred. Unable to delete user '$username'.");
         $this->app->redirect('/admin');
     }
 }

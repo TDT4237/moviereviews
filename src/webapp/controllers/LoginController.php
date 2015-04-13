@@ -6,27 +6,29 @@ use tdt4237\webapp\Auth;
 
 class LoginController extends Controller
 {
-    function __construct()
+
+    public function __construct()
     {
         parent::__construct();
     }
 
-    function index()
+    public function index()
     {
         if ($this->auth->check()) {
-            $username = Auth::user()->getUserName();
+            $username = $this->auth->user()->getUserName();
             $this->app->flash('info', 'You are already logged in as ' . $username);
             $this->app->redirect('/');
-        } else {
-            $this->render('login.twig', []);
+            return;
         }
+
+        $this->render('login.twig', []);
     }
 
-    function login()
+    public function login()
     {
         $request = $this->app->request;
-        $user = $request->post('user');
-        $pass = $request->post('pass');
+        $user    = $request->post('user');
+        $pass    = $request->post('pass');
 
         if ($this->auth->checkCredentials($user, $pass)) {
             $_SESSION['user'] = $user;
@@ -41,9 +43,11 @@ class LoginController extends Controller
 
             $this->app->flash('info', "You are now successfully logged in as $user.");
             $this->app->redirect('/');
-        } else {
-            $this->app->flashNow('error', 'Incorrect user/pass combination.');
-            $this->render('login.twig', []);
+            return;
         }
+        
+        $this->app->flashNow('error', 'Incorrect user/pass combination.');
+        $this->render('login.twig', []);
     }
+
 }

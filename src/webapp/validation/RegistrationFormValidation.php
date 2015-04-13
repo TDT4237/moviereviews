@@ -4,7 +4,7 @@ namespace tdt4237\webapp\validation;
 
 use tdt4237\webapp\models\User;
 
-class RegistrationFormValidation implements \Countable
+class RegistrationFormValidation
 {
     const MIN_USER_LENGTH = 3;
     
@@ -15,9 +15,9 @@ class RegistrationFormValidation implements \Countable
         return $this->validate($username, $password);
     }
     
-    public function count()
+    public function isGoodToGo()
     {
-        return count($this->validationErrors);
+        return empty($this->validationErrors);
     }
     
     public function getValidationErrors()
@@ -27,6 +27,10 @@ class RegistrationFormValidation implements \Countable
 
     private function validate($username, $password)
     {
+        if (empty($password)) {
+            $this->validationErrors[] = 'Password cannot be empty';
+        }
+        
         if (strlen($username) < self::MIN_USER_LENGTH) {
             $this->validationErrors[] = "Username too short. Min length is " . self::MIN_USER_LENGTH;
         }

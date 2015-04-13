@@ -2,7 +2,7 @@
 
 namespace tdt4237\webapp\validation;
 
-class EditUserFormValidation implements \Countable
+class EditUserFormValidation
 {
     private $validationErrors = [];
     
@@ -11,9 +11,9 @@ class EditUserFormValidation implements \Countable
         $this->validate($email, $bio, $age);
     }
     
-    public function count()
+    public function isGoodToGo()
     {
-        return \count($this->validationErrors);
+        return \count($this->validationErrors) === 0;
     }
     
     public function getValidationErrors()
@@ -22,9 +22,10 @@ class EditUserFormValidation implements \Countable
     }
 
     private function validate($email, $bio, $age)
-    {
-        $this->validateAge($age);
+    {   
         $this->validateEmail($email);
+        $this->validateAge($age);
+        $this->validateBio($bio);
     }
     
     private function validateEmail($email)
@@ -40,4 +41,12 @@ class EditUserFormValidation implements \Countable
             $this->validationErrors[] = 'Age must be between 0 and 130.';
         }
     }
+
+    private function validateBio($bio)
+    {
+        if (empty($bio)) {
+            $this->validationErrors[] = 'Bio cannot be empty';
+        }
+    }
+
 }

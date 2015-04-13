@@ -4,6 +4,7 @@ use Slim\Slim;
 use Slim\Views\Twig;
 use Slim\Views\TwigExtension;
 use tdt4237\webapp\Auth;
+use tdt4237\webapp\Hash;
 use tdt4237\webapp\repository\UserRepository;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -32,8 +33,11 @@ try {
     exit();
 }
 
+// Wire together dependencies
+
+$app->hash = new Hash();
 $app->userRepository = new UserRepository($app->db);
-$app->auth = new Auth($app->userRepository);
+$app->auth = new Auth($app->userRepository, $app->hash);
 
 $ns ='tdt4237\\webapp\\controllers\\';
 
@@ -49,8 +53,8 @@ $app->get('/user/new', $ns . 'UserController:index')->name('newuser');
 $app->post('/user/new', $ns . 'UserController:create');
 
 // Edit logged in user
-$app->get('/user/edit', $ns . 'UserController:edit')->name('editprofile');
-$app->post('/user/edit', $ns . 'UserController:edit');
+$app->get('/user/edit', $ns . 'UserController:showUserEditForm')->name('editprofile');
+$app->post('/user/edit', $ns . 'UserController:receiveUserEditForm');
 
 // Show a user by name
 $app->get('/user/:username', $ns . 'UserController:show')->name('showuser');

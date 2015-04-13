@@ -6,7 +6,7 @@ use Slim\Slim;
 
 class User
 {
-    protected $id = null;
+    protected $userId = null;
     protected $user;
     protected $pass;
     protected $email = null;
@@ -26,8 +26,8 @@ class User
     }
 
     function getId()
-        {
-        return $this->id;
+    {
+        return $this->userId;
     }
 
     function getUserName()
@@ -60,9 +60,9 @@ class User
         return $this->isAdmin === "1";
     }
 
-    function setId($id)
+    function setId($userId)
     {
-        $this->id = $id;
+        $this->userId = $userId;
     }
 
     function setUsername($username)

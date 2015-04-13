@@ -8,12 +8,12 @@ class Hash
     {
     }
 
-    static function make($plaintext)
+    public function make($plaintext)
     {
         return hash('sha512', $plaintext);
     }
 
-    static function check($plaintext, $hash)
+    public function check($plaintext, $hash)
     {
         return self::make($plaintext) === $hash;
     }

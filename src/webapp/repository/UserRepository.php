@@ -7,11 +7,16 @@ use tdt4237\webapp\models\Age;
 use tdt4237\webapp\models\Email;
 use tdt4237\webapp\models\User;
 
+/**
+ * This class handles the conversion from PHP objects into database rows.
+ */
 class UserRepository
 {
     const INSERT_QUERY = "INSERT INTO users(user, pass, email, age, bio, isadmin) VALUES('%s', '%s', '%s' , '%s' , '%s', '%s')";
     const UPDATE_QUERY = "UPDATE users SET email='%s', age='%s', bio='%s', isadmin='%s' WHERE id='%s'";
     const FIND_BY_NAME = "SELECT * FROM users WHERE user='%s'";
+    const DELETE_BY_NAME = "DELETE FROM users WHERE user='%s'";
+    const SELECT_ALL = "SELECT * FROM users";
 
     /**
      * @var PDO
@@ -62,16 +67,16 @@ class UserRepository
 
     public function deleteByUsername($username)
     {
-        $query = "DELETE FROM users WHERE user='$username' ";
-        return $this->pdo->exec($query);
+        return $this->pdo->exec(
+            sprintf(self::DELETE_BY_NAME, $username)
+        );
     }
 
     public function all()
     {
-        $query = "SELECT * FROM users";
-        $results = $this->pdo->query($query);
+        $rows = $this->pdo->query(self::SELECT_ALL);
 
-        return array_map([$this, 'makeUserFromRow'], $results->fetchAll());
+        return array_map([$this, 'makeUserFromRow'], $rows->fetchAll());
     }
 
     /**

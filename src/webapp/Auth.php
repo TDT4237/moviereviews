@@ -11,13 +11,19 @@ class Auth
 {
 
     /**
+     * @var Hash
+     */
+    private $hash;
+
+    /**
      * @var UserRepository
      */
     private $userRepository;
 
-    function __construct(UserRepository $userRepository)
+    function __construct(UserRepository $userRepository, Hash $hash)
     {
         $this->userRepository = $userRepository;
+        $this->hash           = $hash;
     }
 
     public function checkCredentials($username, $password)
@@ -28,7 +34,7 @@ class Auth
             return false;
         }
 
-        return Hash::check($password, $user->getPasswordHash());
+        return $this->hash->check($password, $user->getPasswordHash());
     }
 
     /**
@@ -44,7 +50,7 @@ class Auth
      */
     public function guest()
     {
-        return self::check() === false;
+        return $this->check() === false;
     }
 
     /**
@@ -52,7 +58,7 @@ class Auth
      */
     public function user()
     {
-        if (self::check()) {
+        if ($this->check()) {
             return $this->userRepository->findByUser($_SESSION['user']);
         }
 

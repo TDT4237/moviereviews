@@ -16,6 +16,7 @@ class Controller
         $this->app = \Slim\Slim::getInstance();
         $this->userRepository = $this->app->userRepository;
         $this->auth = $this->app->auth;
+        $this->hash = $this->app->hash;
     }
 
     protected function render($template, $variables = [])
