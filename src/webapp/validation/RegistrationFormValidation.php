@@ -30,7 +30,7 @@ class RegistrationFormValidation
         if (empty($password)) {
             $this->validationErrors[] = 'Password cannot be empty';
         }
-        
+
         if (strlen($username) < self::MIN_USER_LENGTH) {
             $this->validationErrors[] = "Username too short. Min length is " . self::MIN_USER_LENGTH;
         }

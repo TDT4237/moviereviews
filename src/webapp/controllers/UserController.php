@@ -2,8 +2,6 @@
 
 namespace tdt4237\webapp\controllers;
 
-use Exception;
-use tdt4237\webapp\Hash;
 use tdt4237\webapp\models\Age;
 use tdt4237\webapp\models\Email;
 use tdt4237\webapp\models\User;
@@ -15,7 +13,7 @@ class UserController extends Controller
 
     public function __construct()
     {
-        parent::__construct(); // explicit parent call is necessary in PHP
+        parent::__construct();
     }
 
     public function index()
@@ -76,8 +74,10 @@ class UserController extends Controller
     public function showUserEditForm()
     {
         $this->makeSureUserIsAuthenticated();
-        $user = $this->auth->user();
-        $this->render('edituser.twig', ['user' => $user]);
+
+        $this->render('edituser.twig', [
+            'user' => $this->auth->user()
+        ]);
     }
 
     public function receiveUserEditForm()
@@ -114,5 +114,4 @@ class UserController extends Controller
             $this->app->redirect('/login');
         }
     }
-
 }

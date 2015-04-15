@@ -23,12 +23,12 @@ class UserRepository
      */
     private $pdo;
 
-    function __construct(PDO $pdo)
+    public function __construct(PDO $pdo)
     {
         $this->pdo = $pdo;
     }
 
-    function makeUserFromRow($row)
+    public function makeUserFromRow($row)
     {
         $user = new User($row['user'], $row['pass']);
         $user->setId($row['id']);
@@ -46,21 +46,11 @@ class UserRepository
         return $user;
     }
 
-    /**
-     * Find user in db by username.
-     *
-     * @param string $username
-     * @return mixed User or null if not found.
-     */
     public function findByUser($username)
     {
         $query = sprintf(self::FIND_BY_NAME, $username);
         $result = $this->pdo->query($query, PDO::FETCH_ASSOC);
         $row = $result->fetch();
-
-        if ($row == false) {
-            return null;
-        }
 
         return $this->makeUserFromRow($row);
     }
@@ -82,7 +72,7 @@ class UserRepository
     /**
      * Insert or update a user object to db.
      */
-    function save(User $user)
+    public function save(User $user)
     {
         if ($user->getId() === null) {
             return $this->saveNewUser($user);

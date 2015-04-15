@@ -4,7 +4,7 @@ namespace tdt4237\webapp;
 
 class Hash
 {
-    function __construct()
+    public function __construct()
     {
     }
 
@@ -15,6 +15,6 @@ class Hash
 
     public function check($plaintext, $hash)
     {
-        return self::make($plaintext) === $hash;
+        return $this->make($plaintext) === $hash;
     }
 }

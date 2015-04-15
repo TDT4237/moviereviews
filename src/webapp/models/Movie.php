@@ -4,11 +4,10 @@ namespace tdt4237\webapp\models;
 
 class Movie
 {
+
     private $id;
     private $name;
     private $imageUrl;
-
-    static $app;
 
     public function getId()
     {
@@ -25,47 +24,21 @@ class Movie
         return $this->imageUrl;
     }
 
-    static function make($id, $name, $imageUrl)
+    public function setId($id)
     {
-        $movie = new Movie();
-        $movie->id = $id;
-        $movie->name = $name;
-        $movie->imageUrl = $imageUrl;
-
-        return $movie;
+        $this->id = $id;
+        return $this;
     }
 
-    /**
-     * Find a movie by id.
-     */
-    static function find($id)
+    public function setName($name)
     {
-        $query = "SELECT * FROM movies WHERE id = $id";
-        $result = self::$app->db->query($query);
-
-        return self::makeFromRow($result->fetch());
+        $this->name = $name;
+        return $this;
     }
 
-    /**
-     * Fetch all movies.
-     */
-    static function all()
+    public function setImageUrl($imageUrl)
     {
-        $query = "SELECT * FROM movies";
-        $results = self::$app->db->query($query);
-        
-        return array_map('tdt4237\webapp\models\Movie::makeFromRow', $results->fetchAll());
-    }
-
-    static function makeFromRow($row)
-    {
-        $movie = self::make(
-            $row['id'],
-            $row['name'],
-            $row['imageurl']
-        );
-
-        return $movie;
+        $this->imageUrl = $imageUrl;
+        return $this;
     }
 }
-Movie::$app = \Slim\Slim::getInstance();

@@ -22,7 +22,7 @@ class EditUserFormValidation
     }
 
     private function validate($email, $bio, $age)
-    {   
+    {
         $this->validateEmail($email);
         $this->validateAge($age);
         $this->validateBio($bio);
@@ -48,5 +48,4 @@ class EditUserFormValidation
             $this->validationErrors[] = 'Bio cannot be empty';
         }
     }
-
 }

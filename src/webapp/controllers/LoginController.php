@@ -2,8 +2,6 @@
 
 namespace tdt4237\webapp\controllers;
 
-use tdt4237\webapp\Auth;
-
 class LoginController extends Controller
 {
 
@@ -49,5 +47,4 @@ class LoginController extends Controller
         $this->app->flashNow('error', 'Incorrect user/pass combination.');
         $this->render('login.twig', []);
     }
-
 }

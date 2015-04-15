@@ -5,6 +5,8 @@ use Slim\Views\Twig;
 use Slim\Views\TwigExtension;
 use tdt4237\webapp\Auth;
 use tdt4237\webapp\Hash;
+use tdt4237\webapp\repository\MovieRepository;
+use tdt4237\webapp\repository\MovieReviewRepository;
 use tdt4237\webapp\repository\UserRepository;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -37,6 +39,8 @@ try {
 
 $app->hash = new Hash();
 $app->userRepository = new UserRepository($app->db);
+$app->movieRepository = new MovieRepository($app->db);
+$app->movieReviewRepository = new MovieReviewRepository($app->db);
 $app->auth = new Auth($app->userRepository, $app->hash);
 
 $ns ='tdt4237\\webapp\\controllers\\';

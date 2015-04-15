@@ -2,15 +2,14 @@
 
 namespace tdt4237\webapp\models;
 
-use Slim\Slim;
-
 class User
 {
-    protected $userId = null;
+
+    protected $userId  = null;
     protected $user;
     protected $pass;
-    protected $email = null;
-    protected $bio = 'Bio is empty.';
+    protected $email   = null;
+    protected $bio     = 'Bio is empty.';
     protected $age;
     protected $isAdmin = 0;
 
@@ -19,74 +18,82 @@ class User
         $this->user = $user;
         $this->pass = $pass;
     }
-    
-    public function setIsAdmin($isAdmin)
-    {
-        $this->isAdmin = $isAdmin;
-    }
 
-    function getId()
+    public function getUserId()
     {
         return $this->userId;
     }
 
-    function getUserName()
+    public function getUser()
     {
         return $this->user;
     }
 
-    function getPasswordHash()
+    public function getPass()
     {
         return $this->pass;
     }
 
-    function getEmail()
+    public function getEmail()
     {
         return $this->email;
     }
 
-    function getBio()
+    public function getBio()
     {
         return $this->bio;
     }
 
-    function getAge()
+    public function getAge()
     {
         return $this->age;
     }
 
-    function isAdmin()
+    public function isAdmin()
     {
-        return $this->isAdmin === "1";
+        return $this->isAdmin === '1';
     }
 
-    function setId($userId)
+    public function setUserId($userId)
     {
         $this->userId = $userId;
+        return $this;
     }
 
-    function setUsername($username)
+    public function setUser($user)
     {
-        $this->user = $username;
+        $this->user = $user;
+        return $this;
     }
 
-    function setHash($hash)
+    public function setPass($pass)
     {
-        $this->pass = $hash;
+        $this->pass = $pass;
+        return $this;
     }
 
-    function setEmail(Email $email)
+    public function setEmail($email)
     {
         $this->email = $email;
+        return $this;
     }
 
-    function setBio($bio)
+    public function setBio($bio)
     {
         $this->bio = $bio;
+        return $this;
     }
 
-    function setAge(Age $age)
+    public function setAge($age)
     {
         $this->age = $age;
+        return $this;
     }
+
+    public function setIsAdmin($isAdmin)
+    {
+        $this->isAdmin = $isAdmin;
+        return $this;
+    }
+
 }

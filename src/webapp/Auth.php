@@ -20,7 +20,7 @@ class Auth
      */
     private $userRepository;
 
-    function __construct(UserRepository $userRepository, Hash $hash)
+    public function __construct(UserRepository $userRepository, Hash $hash)
     {
         $this->userRepository = $userRepository;
         $this->hash           = $hash;

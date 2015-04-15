@@ -4,50 +4,45 @@ namespace tdt4237\webapp\controllers;
 
 use tdt4237\webapp\models\Movie;
 use tdt4237\webapp\models\MovieReview;
-use tdt4237\webapp\Auth;
 
 class MovieController extends Controller
 {
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
     }
-
-    function index()
+    
+    public function index()
     {
-        $movies = Movie::all();
-
-        usort($movies, function ($a, $b) {
-            return strcmp($a->getName(), $b->getName());
-        });
+        $movies = $this->movieRepository->all();
+        $movies->sortByTitle();
 
         $this->render('movies.twig', ['movies' => $movies]);
     }
 
-    /**
-     * Show movie by id.
-     */
-    function show($id)
+    public function show($movieId)
     {
         $this->render('showmovie.twig', [
-            'movie' => Movie::find($id),
-            'reviews' => MovieReview::findByMovieId($id)
+            'movie' => $this->movieRepository->find($movieId),
+            'reviews' => $this->movieReviewRepository->findByMovieId($movieId)
         ]);
     }
 
-    function addReview($id)
+    public function addReview($movieId)
     {
         $author = $this->app->request->post('author');
         $text = $this->app->request->post('text');
 
-        $review = MovieReview::makeEmpty();
-        $review->setAuthor($author);
-        $review->setText($text);
-        $review->setMovieId($id);
+        $movieReview = new MovieReview();
+        
+        $movieReview
+            ->setAuthor($author)
+            ->setText($text)
+            ->setMovieId($movieId);
 
-        $review->save();
+        $this->movieReviewRepository->save($movieReview);
 
         $this->app->flash('info', 'The review was successfully saved.');
-        $this->app->redirect('/movies/' . $id);
+        $this->app->redirect('/movies/' . $movieId);
     }
 }
