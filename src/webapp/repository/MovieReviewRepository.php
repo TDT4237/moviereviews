@@ -38,7 +38,7 @@ class MovieReviewRepository
     public function findByMovieId($movieId)
     {
         $query   = "SELECT * FROM moviereviews WHERE movieid = $movieId";
-        $rows = $this->db->query($query)->fetchAll;
+        $rows = $this->db->query($query)->fetchAll();
 
         return array_map([$this, 'makeFromRow'], $rows);
     }

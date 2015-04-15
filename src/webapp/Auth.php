@@ -4,7 +4,6 @@ namespace tdt4237\webapp;
 
 use Exception;
 use tdt4237\webapp\Hash;
-use tdt4237\webapp\models\User;
 use tdt4237\webapp\repository\UserRepository;
 
 class Auth
@@ -34,7 +33,7 @@ class Auth
             return false;
         }
 
-        return $this->hash->check($password, $user->getPasswordHash());
+        return $this->hash->check($password, $user->getHash());
     }
 
     /**
@@ -81,4 +80,5 @@ class Auth
     {
         session_destroy();
     }
+
 }

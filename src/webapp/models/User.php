@@ -6,17 +6,17 @@ class User
 {
 
     protected $userId  = null;
-    protected $user;
-    protected $pass;
+    protected $username;
+    protected $hash;
     protected $email   = null;
     protected $bio     = 'Bio is empty.';
     protected $age;
     protected $isAdmin = 0;
 
-    function __construct($user, $pass)
+    function __construct($username, $hash)
     {
-        $this->user = $user;
-        $this->pass = $pass;
+        $this->username = $username;
+        $this->hash = $hash;
     }
 
     public function getUserId()
@@ -24,14 +24,14 @@ class User
         return $this->userId;
     }
 
-    public function getUser()
+    public function getUsername()
     {
-        return $this->user;
+        return $this->username;
     }
 
-    public function getPass()
+    public function getHash()
     {
-        return $this->pass;
+        return $this->hash;
     }
 
     public function getEmail()
@@ -60,15 +60,15 @@ class User
         return $this;
     }
 
-    public function setUser($user)
+    public function setUsername($username)
     {
-        $this->user = $user;
+        $this->username = $username;
         return $this;
     }
 
-    public function setPass($pass)
+    public function setHash($hash)
     {
-        $this->pass = $pass;
+        $this->hash = $hash;
         return $this;
     }
 

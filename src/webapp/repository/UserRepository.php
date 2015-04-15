@@ -7,9 +7,6 @@ use tdt4237\webapp\models\Age;
 use tdt4237\webapp\models\Email;
 use tdt4237\webapp\models\User;
 
-/**
- * This class handles the conversion from PHP objects into database rows.
- */
 class UserRepository
 {
     const INSERT_QUERY = "INSERT INTO users(user, pass, email, age, bio, isadmin) VALUES('%s', '%s', '%s' , '%s' , '%s', '%s')";
@@ -31,7 +28,7 @@ class UserRepository
     public function makeUserFromRow($row)
     {
         $user = new User($row['user'], $row['pass']);
-        $user->setId($row['id']);
+        $user->setUserId($row['id']);
         $user->setBio($row['bio']);
         $user->setIsAdmin($row['isadmin']);
 
@@ -69,12 +66,9 @@ class UserRepository
         return array_map([$this, 'makeUserFromRow'], $rows->fetchAll());
     }
 
-    /**
-     * Insert or update a user object to db.
-     */
     public function save(User $user)
     {
-        if ($user->getId() === null) {
+        if ($user->getUserId() === null) {
             return $this->saveNewUser($user);
         }
 
@@ -85,8 +79,8 @@ class UserRepository
     {
         $query = sprintf(
             self::INSERT_QUERY,
-            $user->getUserName(),
-            $user->getPasswordHash(),
+            $user->getUsername(),
+            $user->getHash(),
             $user->getEmail(),
             $user->getAge(),
             $user->getBio(),
@@ -104,7 +98,7 @@ class UserRepository
             $user->getAge(),
             $user->getBio(),
             $user->isAdmin(),
-            $user->getId()
+            $user->getUserId()
         );
 
         return $this->pdo->exec($query);
